@@ -36,13 +36,15 @@ bool fun(char ch = ' ', bool x = 0, bool y = 0)
     if (ch == '@')
         return !x || !y;
 
-    
+    if (ch == '?')
+        return 1;
+     
 }
 
 bool calc(std::string str)
 {
     std::map<char, bool>tmp;
-    std::vector<char>v = { '~' , '&' , '|' , 'v' , '>' , '<' , '=' , '!' , '@' };
+    std::vector<char>v = { '~' , '&' , '|' , 'v' , '>' , '<' , '=' , '!' , '@' , '?'};
     std::cout << "Enter your function: ";
     std::getline(std::cin, str);
     for (int i = 0; i < str.length(); ++i)
@@ -51,7 +53,7 @@ bool calc(std::string str)
     }
     for (int i = 0; i < str.length(); ++i)
     {
-        if (str[i] != '(' && str[i] != ')' && str[i] != '~' && str[i] != '&' && str[i] != '|' && str[i] != 'v' && str[i] != '>' && str[i] != '<' && str[i] != '+' && str[i] != '=' && str[i] != '!' && str[i] != '@')
+        if (str[i] != '(' && str[i] != ')' && str[i] != '~' && str[i] != '&' && str[i] != '|' && str[i] != 'v' && str[i] != '>' && str[i] != '<' && str[i] != '+' && str[i] != '=' && str[i] != '!' && str[i] != '@' && str[i] != '?')
         {
             int a = 0;
             do
