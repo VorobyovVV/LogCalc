@@ -39,42 +39,42 @@ bool fun(char ch = ' ', bool x = 0, bool y = 0)
     
 }
 
-bool calc(std::string s)
+bool calc(std::string str)
 {
     std::map<char, bool>tmp;
     std::vector<char>v = { '~' , '&' , '|' , 'v' , '>' , '<' , '=' , '!' , '@' };
     std::cout << "Enter your function: ";
-    std::getline(std::cin, s);
-    for (int i = 0; i < s.length(); ++i)
+    std::getline(std::cin, str);
+    for (int i = 0; i < str.length(); ++i)
     {
-        if (s[i] == ' ') s.erase(s.begin() + i), --i;
+        if (str[i] == ' ') str.erase(str.begin() + i), --i;
     }
-    for (int i = 0; i < s.length(); ++i)
+    for (int i = 0; i < str.length(); ++i)
     {
-        if (s[i] != '(' && s[i] != ')' && s[i] != '~' && s[i] != '&' && s[i] != '|' && s[i] != 'v' && s[i] != '>' && s[i] != '<' && s[i] != '+' && s[i] != '=' && s[i] != '!' && s[i] != '@')
+        if (str[i] != '(' && str[i] != ')' && str[i] != '~' && str[i] != '&' && str[i] != '|' && str[i] != 'v' && str[i] != '>' && str[i] != '<' && str[i] != '+' && str[i] != '=' && str[i] != '!' && str[i] != '@')
         {
             int a = 0;
             do
             {
-                std::cout << "Enter the value of " << s[i] << "(0 or 1): ";
+                std::cout << "Enter the value of " << str[i] << "(0 or 1): ";
                 std::cin >> a;
             } while (a != 0 && a != 1);
-            tmp[s[i]] = a;
+            tmp[str[i]] = a;
         }
     }
-    while (s.length() > 1)
+    while (str.length() > 1)
     {
         for (int i = 0; i < v.size(); ++i)
         {
             int l=-1;
-            for (int j = 0; j < s.length(); ++j)
+            for (int j = 0; j < str.length(); ++j)
             {
-                if (s[j] == '(') l = j;
+                if (str[j] == '(') l = j;
             }
-            int r = s.length();
-            for (int j = 0; j < s.length(); ++j)
+            int r = str.length();
+            for (int j = 0; j < str.length(); ++j)
             {
-                if (s[j] == ')')
+                if (str[j] == ')')
                 {
                     r = j;
                     break;
@@ -82,44 +82,44 @@ bool calc(std::string s)
             }
             for (int j = l + 1; j < r; ++j)
             {
-                if (s[j] == v[i])
+                if (str[j] == v[i])
                 {
                     bool bl;
-                    if (s[j] == '~')
+                    if (str[j] == '~')
                     {
-                        if (s[j + 1] >= '0' && s[j + 1] <= '9')
-                            bl = fun(s[j], 1, s[j + 1] - 48);
+                        if (str[j + 1] >= '0' && str[j + 1] <= '9')
+                            bl = fun(str[j], 1, str[j + 1] - 48);
                         else
-                            bl = fun(s[j], 1, tmp[s[j + 1]]);
-                        s[j + 1] = bl + 48;
-                        s.erase(s.begin() + j);
+                            bl = fun(str[j], 1, tmp[str[j + 1]]);
+                        str[j + 1] = bl + 48;
+                        str.erase(str.begin() + j);
                         j -= 1;
                         r -= 1;
                     }
                     else
                     {
-                        if (s[j + 1] >= '0' && s[j + 1] <= '9')
-                            bl = fun(s[j], tmp[s[j - 1]], s[j + 1] - 48);
+                        if (str[j + 1] >= '0' && str[j + 1] <= '9')
+                            bl = fun(str[j], tmp[str[j - 1]], str[j + 1] - 48);
                         else
-                            bl = fun(s[j], tmp[s[j - 1]], tmp[s[j + 1]]);
-                        s[j - 1] = bl + 48;
-                        s.erase(s.begin() + j);
-                        s.erase(s.begin() + j);
+                            bl = fun(str[j], tmp[str[j - 1]], tmp[str[j + 1]]);
+                        str[j - 1] = bl + 48;
+                        str.erase(str.begin() + j);
+                        str.erase(str.begin() + j);
                         j -= 1;
                         r -= 2;
                     }
                 }
             }
         }
-        for (int i = 1; i < s.length() - 1; ++i)
+        for (int i = 1; i < str.length() - 1; ++i)
         {
-            if (s[i - 1] == '(' && s[i + 1] == ')')
+            if (str[i - 1] == '(' && str[i + 1] == ')')
             {
-                s.erase(s.begin() + i + 1);
-                s.erase(s.begin() + i - 1);
+                str.erase(str.begin() + i + 1);
+                str.erase(str.begin() + i - 1);
             }
         }
     }
-    if (s[0]>='0' && s[0]<='9') return s[0]-48;
-    else return tmp[s[0]];
+    if (str[0]>='0' && str[0]<='9') return str[0]-48;
+    else return tmp[str[0]];
 }
